@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="Nazar Kaznadzey" />
+	<title>Report home page</title>
+	<meta charset="utf-8" />
+	
+	<link href="{{ asset('/css/jquery-ui-1.9.2.custom.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('/css/style.css') }}" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript" src="{{ asset('/js/jquery-2.1.4.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/jquery-ui-1.9.2.custom.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/script.js') }}"></script>
+</head>
+
+<body>
+
+<div class="site_container">
+	<div class="report_container">
+		<div class="filters_container">
+			<header>Выберите необходимые параметры / Виберіть необхідні параметри</header>
+			<div class="filters">
+				{% if group_types is not empty %}
+					<div class="s-row">
+						<div class="n">Выберите группу:</div>
+						<div class="v">
+							<select name="group_type">
+								<option value="0"> - - - </option>
+								{% for group in group_types %}
+									<option value="{{ group.id }}">{{ group.name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				{% endif %}
+				{% if years.list is not empty %}
+					<div class="s-row">
+						<div class="n">Выберите год:</div>
+						<div class="v">
+							<select name="report_year" onchange="loadDatePicker();">
+								{% for year in years.list %}
+									<option value="{{ year }}"{% if year == years.current %} selected=""{% endif %}>{{ year }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				{% endif %}
+				{% if report_types is not empty %}
+					<div class="s-row">
+						<div class="n">Выберите периодичность сдачи:</div>
+						<div class="v">
+							<select name="report_type">
+								<option value="0"> - - - </option>
+								{% for type in report_types %}
+									<option value="{{ type.id }}">{{ type.name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				{% endif %}
+				<div class="s-row">
+					<div class="n">Выберите период:</div>
+					<div class="v date">
+						<div class="from">с</div>
+						<input type="text" name="date_from" value="{{ 'now'|date('d.m') }}" class="datepicker" readonly="" />
+						<div class="to">до</div>
+						<input type="text" name="date_to" value="{{ 'now'|date('d.m') }}" class="datepicker" readonly="" />
+					</div>
+				</div>
+				{% if languages is not empty %}
+					<div class="s-row">
+						<div class="n">Выберите язык:</div>
+						<div class="v">
+							<select name="report_language">
+								{% for language in languages %}
+									<option value="{{ language.id }}">{{ language.name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<div class="button" onclick="loadActualReports();"><div>Показать задачи</div></div>
+		</div>
+		<div id="actual_reports">
+			<div class="message green">Для того чтобы получть актуальные задачи выберите параметры поиска и нажмите &laquo;Показать задачи&raquo;</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
