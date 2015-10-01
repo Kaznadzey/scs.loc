@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @author Nazar Kaznadzey
+ * @copyright 2015
+ */
+
+namespace SCSBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="national_holidays")
+ */
+class NationalHolidays
+{
+  /**
+   * @ORM\Id
+   * @ORM\Column(type="integer", length=3)
+   */
+  protected $nh_id;
+  
+  /**
+   * @ORM\Column(type="integer", length=2)
+   */
+  protected $nh_day;
+  
+  /**
+   * @ORM\Column(type="integer", length=2)
+   */
+  protected $nh_month;
+}

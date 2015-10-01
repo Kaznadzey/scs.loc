@@ -34,11 +34,12 @@ if(window.jQuery)
 	{
 		var p = new Object;
 		var sErrors = "";
-		p['group_type'] 	= parseInt($('select[name=group_type] :selected').val());
-		p['year'] 				= parseInt($('select[name=report_year] :selected').val());
-		p['report_type'] 	= parseInt($('select[name=report_type] :selected').val());
-		p['date_from']		= $('input[name=date_from]').val();
-		p['date_to']			= $('input[name=date_to]').val();
+		p['group_type'] 			= parseInt($('select[name=group_type] :selected').val());
+		p['year'] 						= parseInt($('select[name=report_year] :selected').val());
+		p['report_type'] 			= parseInt($('select[name=report_type] :selected').val());
+		p['date_from']				= $('input[name=date_from]').val();
+		p['date_to']					= $('input[name=date_to]').val();
+		p['report_language']	= parseInt($('select[name=report_language] :selected').val());
 		
 		if(p['group_type'] <= 0 || isNaN(p['group_type']))
 			sErrors += "Выберите Вашу группу \n";

@@ -1,0 +1,7 @@
+{% if actions is not empty %}
+	{% for action in actions %}
+		<div class="single_action">{{ action }}</div>
+	{% endfor %}
+{% else %}
+	<div class="message red">Система не нашла для Вас актуальных задач.</div>
+{% endif %}

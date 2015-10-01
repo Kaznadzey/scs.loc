@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use SCSBundle\Entity\ReportRepository;
 
 class ReportController extends Controller
 {
@@ -77,7 +78,7 @@ class ReportController extends Controller
 		 */
 		$aParams['report_types'] = array();
 		$aParams['report_types'][] = array(
-			'id'		=> 1,
+			'id'		=> 3,
 			'name'	=> 'Місяць'
 		);
 		$aParams['report_types'][] = array(
@@ -117,13 +118,19 @@ class ReportController extends Controller
 			'year'					=> $oRequest->request->get('year'),
 			'report_type'		=> $oRequest->request->get('report_type'),
 			'date_from'			=> $oRequest->request->get('date_from'),
-			'date_to'				=> $oRequest->request->get('date_to')
+			'date_to'				=> $oRequest->request->get('date_to'),
+			'language_id'		=> $oRequest->request->get('report_language')
 		);
 		
 		$aDate 								= explode('.', $aParams['date_from']);
 		$aParams['date_from'] = $aParams['year'] . '-' . $aDate[1] . '-' . $aDate[0];
 		$aDate 								= explode('.', $aParams['date_to']);
 		$aParams['date_to'] 	= $aParams['year'] . '-' . $aDate[1] . '-' . $aDate[0];
+		
+		$oRR = new ReportRepository($aParams, $this->getDoctrine());
+		$aActions = $oRR->getActualReportsAccordingParams();
+		
+		$aResult['content'] = $this->render('ReportBundle:Report:actions.html.twig', array('actions' => $aActions))->getContent();
 		
 		$oResponse = new Response();
   	
